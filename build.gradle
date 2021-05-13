@@ -1,0 +1,50 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    apply from: 'dependencies.gradle'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath rootProject.gradlePluginAndroid
+        classpath rootProject.kotlinGradlePlugin
+        classpath rootProject.hiltGradlePlugin
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+subprojects {
+    afterEvaluate { project ->
+        if (project.hasProperty('android')) {
+            android {
+                compileSdkVersion rootProject.androidCompileSdkVersion
+                buildToolsVersion rootProject.androidBuildToolsVersion
+
+                defaultConfig {
+                    minSdkVersion rootProject.androidMinSdkVersion
+                    targetSdkVersion rootProject.androidTargetSdkVersion
+                    testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+                }
+
+                compileOptions {
+                    sourceCompatibility rootProject.javaVersion
+                    targetCompatibility rootProject.javaVersion
+                }
+
+                kotlinOptions {
+                    jvmTarget = rootProject.javaVersion
+                }
+            }
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
