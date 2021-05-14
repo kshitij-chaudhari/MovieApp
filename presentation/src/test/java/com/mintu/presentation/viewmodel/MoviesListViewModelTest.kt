@@ -45,7 +45,7 @@ class MoviesListViewModelTest {
     @Test
     fun loadingState() {
         testCoroutineRule.runBlockingTest {
-            coEvery { getUseCase.invoke("", 0) } returns flow { emit(Result.Loading) }
+            coEvery { getUseCase.invoke("", 0, false) } returns flow { emit(Result.Loading) }
 
             viewModel.getMoviesList()
 
@@ -57,7 +57,7 @@ class MoviesListViewModelTest {
     @Test
     fun successState() {
         testCoroutineRule.runBlockingTest {
-            coEvery { getUseCase.invoke("", 0) } returns flow {
+            coEvery { getUseCase.invoke("", 0, false) } returns flow {
                 emit(Result.Success(movies.data))
             }
             viewModel.getMoviesList()
@@ -70,7 +70,7 @@ class MoviesListViewModelTest {
     @Test
     fun errorState() {
         testCoroutineRule.runBlockingTest {
-            coEvery { getUseCase.invoke("", 0) } returns flow { emit(Result.Error("Error")) }
+            coEvery { getUseCase.invoke("", 0, false) } returns flow { emit(Result.Error("Error")) }
 
             viewModel.getMoviesList()
 

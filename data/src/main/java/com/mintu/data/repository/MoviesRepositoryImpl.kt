@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 import java.util.*
 import javax.inject.Inject
 
-private const val LAPSE_TIME_DURATION_IN_SECONDS = 10 * 60
+private const val LAPSE_TIME_DURATION_IN_SECONDS = 1 * 60
 
 class MoviesRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
@@ -21,9 +21,9 @@ class MoviesRepositoryImpl @Inject constructor(
     private val sharedPreferences: SharedPreferences
 ): MoviesRepository{
 
-    override suspend fun getMoviesList(query: String, currentTime: Long) = repoFlow {
+    override suspend fun getMoviesList(query: String, currentTime: Long, isConnected: Boolean) = repoFlow {
         if(query.isBlank()) {
-            if(lastFetchTime(currentTime, LAPSE_TIME_DURATION_IN_SECONDS)) {
+            if(lastFetchTime(currentTime, LAPSE_TIME_DURATION_IN_SECONDS, isConnected)) {
                 sharedPreferences.lastFetchTime = currentTime
                 val data = MoviesEntityMapper().toDomain(remoteDataSourceImpl.getMoviesListData())
                 localDataSourceImpl.addMoviesList(MoviesEntityMapper().toData(data))
@@ -35,7 +35,8 @@ class MoviesRepositoryImpl @Inject constructor(
         }
     }.flowOn(dispatcher)
 
-    override fun lastFetchTime(currentTime: Long, lapseTime: Int): Boolean {
+    override fun lastFetchTime(currentTime: Long, lapseTime: Int, isConnected: Boolean): Boolean {
+        if(!isConnected) return false
         val lastTime  = sharedPreferences.lastFetchTime
         val diff = (currentTime - lastTime) / 1000
         return diff > lapseTime

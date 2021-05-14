@@ -27,8 +27,8 @@ class MoviesListViewModel @Inject constructor(
     private val _errorState = MutableStateFlow("")
     val errorState: StateFlow<String> = _errorState
 
-    fun getMoviesList(query: String = "", currentTime: Long = 0) = viewModelScope.launch {
-        moviesUseCase.invoke(query, currentTime).collect {
+    fun getMoviesList(query: String = "", currentTime: Long = 0, isConnected: Boolean = false) = viewModelScope.launch {
+        moviesUseCase.invoke(query, currentTime, isConnected).collect {
             when(it) {
                 is Result.Loading -> {
                     _loadingState.value = true

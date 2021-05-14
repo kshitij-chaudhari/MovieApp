@@ -32,11 +32,11 @@ class GetMoviesUseCaseTest {
     @Test
     fun `flow is success result movies`() {
         runBlocking {
-            coEvery { repo.getMoviesList("", 0) } returns flow { emit(Result.Success(movies.data)) }
+            coEvery { repo.getMoviesList("", 0, false) } returns flow { emit(Result.Success(movies.data)) }
 
-            val data =  useCase.invoke("", 0)
+            val data =  useCase.invoke("", 0, false)
 
-            coVerify { useCase.invoke("", 0) }
+            coVerify { useCase.invoke("", 0, false) }
             data.collect {
                 Truth.assertThat(it is Result.Success).isTrue()
             }
@@ -46,11 +46,11 @@ class GetMoviesUseCaseTest {
     @Test
     fun `flow is loading result movies`() {
         runBlocking {
-            coEvery { repo.getMoviesList("", 0) } returns flow { emit(Result.Loading) }
+            coEvery { repo.getMoviesList("", 0, false) } returns flow { emit(Result.Loading) }
 
-            val data =  useCase.invoke("", 0)
+            val data =  useCase.invoke("", 0, false)
 
-            coVerify { useCase.invoke("", 0) }
+            coVerify { useCase.invoke("", 0, false) }
             data.collect { result ->
                 Truth.assertThat(result is Result.Loading).isTrue()
             }
@@ -60,11 +60,11 @@ class GetMoviesUseCaseTest {
     @Test
     fun `flow is error result movies`() {
         runBlocking {
-            coEvery { repo.getMoviesList("", 0) } returns flow { emit(Result.Error("Error")) }
+            coEvery { repo.getMoviesList("", 0, false) } returns flow { emit(Result.Error("Error")) }
 
-            val data =  useCase.invoke("", 0)
+            val data =  useCase.invoke("", 0, false)
 
-            coVerify { useCase.invoke("", 0) }
+            coVerify { useCase.invoke("", 0, false) }
             data.collect { result ->
                 Truth.assertThat(result is Result.Error).isTrue()
             }

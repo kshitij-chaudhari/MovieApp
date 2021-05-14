@@ -46,7 +46,7 @@ class MoviesRepositoryImplTest {
         coroutineDispatcher.runBlockingTest {
             coEvery { remoteDataSource.getMoviesListData() } returns movies.data
 
-            val repo = repositoryImpl.getMoviesList("", 0)
+            val repo = repositoryImpl.getMoviesList("", 0, false)
 
             repo.collect {
                 if(it is Result.Success) {

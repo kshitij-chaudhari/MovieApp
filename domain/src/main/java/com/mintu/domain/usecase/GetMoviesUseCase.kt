@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetMoviesUseCase @Inject constructor(
     private val moviesRepository: MoviesRepository
 ) {
-    suspend operator fun invoke(query: String = "", currentTime: Long): Flow<Result<List<Data>>> {
-        return moviesRepository.getMoviesList(query, currentTime)
+    suspend operator fun invoke(query: String = "", currentTime: Long, isConnected: Boolean): Flow<Result<List<Data>>> {
+        return moviesRepository.getMoviesList(query, currentTime, isConnected)
     }
 }

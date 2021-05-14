@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mintu.movieapp.R
 import com.mintu.movieapp.databinding.MainFragmentBinding
 import com.mintu.movieapp.ui.adapter.MoviesListAdapter
+import com.mintu.movieapp.util.isConnected
 import com.mintu.movieapp.util.toast
 import com.mintu.presentation.model.Data
 import com.mintu.presentation.viewmodel.MoviesListViewModel
@@ -34,7 +35,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
         fragmentBinding = MainFragmentBinding.bind(view)
 
-        viewModel.getMoviesList(currentTime = System.currentTimeMillis())
+        viewModel.getMoviesList(currentTime = System.currentTimeMillis(), isConnected = isConnected)
         initView(view.context)
         setupObserver()
         setupMenuListeners()
@@ -76,7 +77,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
                     searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                         override fun onQueryTextChange(newText: String?): Boolean {
                             if(newText?.isBlank() == true) {
-                                viewModel.getMoviesList(currentTime = System.currentTimeMillis())
+                                viewModel.getMoviesList(currentTime = System.currentTimeMillis(), isConnected = isConnected)
                             }
                             return false
                         }

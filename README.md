@@ -1,7 +1,7 @@
-# News App
+# MoviesApp
 
 ## About the app
-I have created this small news app with simple UI to showcase my skills on how to create `Stable` app with proper `MVVM` and `Clean Architecture`. Also the project is using mock api response to show data on the UI. Launching screen will show the list of cat stories and user will be able to see the details of cat story when they tap into it.
+I have created this small Movie app with simple UI to showcase my skills on how to create `Stable` app with proper `MVVM` and `Clean Architecture`. Also the project is using remote api network call and save data on room database to show data on the UI. Launching screen will show the list of movies and user can also able filter movies by searching for terms in the title or by the genre.
 
 ## Code structuring approach
 To build a good software architecture system that would be easy to understand, to develop, to maintain and to implement. We should follow modern architecture patterns like mentioned below:
@@ -12,7 +12,7 @@ To build a good software architecture system that would be easy to understand, t
  
 ### CLEAN Architecture:
 
-First of all the layers in `Clean architecture` has been separated into individual modules in a single Android project. For example android modules like `app`, `core`, `presentation`, `data` and `domain`. Notice the dependency of these modules, as per the dependency rule of `Clean architecture`, all the dependencies directly or indirectly point towards the the domain layer. The domain layer incorporates `Entities`, `Use-Cases` and interfaces required to cross boundaries, `Repository` in this case. The `Data` layer handles data and communicates with data source from `Remote` in this case `Mock` API, to provides required data requested by the `Presentation` layer. `View` layer will observe on the `presentation` layer's stateFlow object, to get the updated data on state change. Future I will create `Locale` data source to provide offline support for the app.
+First of all the layers in `Clean architecture` has been separated into individual modules in a single Android project. For example android modules like `app`, `core`, `presentation`, `data` and `domain`. Notice the dependency of these modules, as per the dependency rule of `Clean architecture`, all the dependencies directly or indirectly point towards the the domain layer. The domain layer incorporates `Entities`, `Use-Cases` and interfaces required to cross boundaries, `Repository` in this case. The `Data` layer handles data and communicates with data source from `Remote` in this case Rest API, to provides required data requested by the `Presentation` layer. `View` layer will observe on the `presentation` layer's stateFlow object, to get the updated data on state change. I have created `Local` data source to provide offline data support for the application using local database.
 
 Having separate modules is not necessary, we can create all the layers in the app modules itself. Having separate modules and depending on the intended modules prevent accidental usage of a classes in unintended places. There are also couple of benefits mentioned below.
 
@@ -32,8 +32,8 @@ Having separate modules is not necessary, we can create all the layers in the ap
 
 - **Kotlin-Coroutine-Flow**:for asynchronous task, reactive programming, mapping, transformation.
 - **Hilt**: for Dependency Injection
-- **Navigation-component**: for switching between fragments
 - **Retrofit**: Netwoking Library with MockInterceptor
+- **Room-Database**: Database library to save data locally and provide offline data
 - **View-Binding**: for Accessing xml view ids
 - **ViewModel**: For persisting data across configuration changes
 - **Expresso, Mockk, Junit** - For testing
