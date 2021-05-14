@@ -24,6 +24,7 @@ Having separate modules is not necessary, we can create all the layers in the ap
 - Our code will be further decoupled
 - The project will be even easier to maintain.
 - Adding new features can be easy and quick.
+- Adding new library and replacing old one can be easy and quick.
 - Dependencies can only point inwards (from concretions towards abstractions)
 - The project will be point towards Stability
 - Our code will point towards Abstractions
@@ -32,7 +33,7 @@ Having separate modules is not necessary, we can create all the layers in the ap
 
 - **Kotlin-Coroutine-Flow**:for asynchronous task, reactive programming, mapping, transformation.
 - **Hilt**: for Dependency Injection
-- **Retrofit**: Netwoking Library with MockInterceptor
+- **Retrofit**: Netwoking Library to fetch data from REST API
 - **Room-Database**: Database library to save data locally and provide offline data
 - **View-Binding**: for Accessing xml view ids
 - **ViewModel**: For persisting data across configuration changes
