@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.flowOn
 import java.util.*
 import javax.inject.Inject
 
-private const val LAPSE_TIME_DURATION_IN_SECONDS = 1 * 60
+private const val LAPSE_TIME_DURATION_IN_SECONDS = 10 * 60
 
 class MoviesRepositoryImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
